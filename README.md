@@ -1,61 +1,59 @@
-🏓 Rust Pong
+# 🏓 Rust Pong
 
-A modern, fast-paced take on the classic Pong game, built with Rust and the Macroquad game engine. This version features an adaptive AI, a full power-up system, and a slow-motion replay system.
+## بازی چیه؟
 
-## Features
+یه نسخه‌ی مدرن و سریع از بازی کلاسیک Pong هست که با زبان Rust و موتور بازی‌سازی Macroquad نوشته شده. نسبت به Pong معمولی، این نسخه هوش مصنوعی، سیستم پاورآپ، و ریپلی اسلوموشن داره.
 
-- **Single Player Mode**: Play against an AI opponent with three difficulty levels (Easy / Medium / Hard).
-- **Two Player Mode**: Local multiplayer for competitive fun.
-- **Progressive Difficulty**: The ball speeds up after every point, capped at a max speed, and your paddle shrinks a little each time you concede.
-- **Bounce Physics**: Bounce angle depends on where the ball hits the paddle.
-- **Countdown Serve**: A 3, 2, 1, GO! countdown before each serve; the ball serves toward whoever just scored.
-- **Power-up System**: Eight random power-ups spawn periodically at the center line:
-  - Fast Ball / Slow Ball — changes the game pace.
-  - Big Paddle — increases your paddle size.
-  - Shrink Opponent — shrinks the enemy's paddle.
-  - Freeze — temporarily stops the opponent's movement.
-  - Reverse Controls — flips the opponent's inputs.
-  - Shield — protects your goal line once.
-  - Multi-Ball — adds an extra ball to the field.
-- **Main Menu**: 1 Player / 2 Player / Controls / Quit, plus a dedicated controls screen.
-- **Instant Replay**: The last ~5 seconds before every point are replayed in dramatic slow motion (press Space to skip).
+## چجوری انجام میشه؟
 
-## Controls
+| کار                  | بازیکن ۱ (چپ) | بازیکن ۲ (راست / AI) |
+|----------------------|:---------------:|:-----------------------:|
+| حرکت به بالا         | W               | فلش بالا                |
+| حرکت به پایین        | S               | فلش پایین                |
+| تایید در منو         | Enter           | Enter                    |
+| رد کردن ریپلی        | Space           | Space                    |
+| برگشت / خروج         | Escape          | Escape                   |
 
-| Action       | Player 1 (Left) | Player 2 (Right / AI) |
-|--------------|:----------------:|:----------------------:|
-| Move Up      | W                | Up Arrow               |
-| Move Down    | S                | Down Arrow              |
-| Select Menu  | Enter            | Enter                   |
-| Skip Replay  | Space            | Space                   |
-| Back / Quit  | Escape           | Escape                  |
+- توپ بعد از هر امتیاز سریع‌تر می‌شه (تا یه سقف مشخص).
+- زاویه‌ی برخورد توپ به راکت، بستگی به نقطه‌ی برخورد داره.
+- قبل از هر سرو یه شمارش معکوس (۳، ۲، ۱، برو!) نمایش داده می‌شه.
+- هر بار که گل بخوری، راکتت یه‌کم کوچیک‌تر می‌شه (تا یه حداقل مشخص).
+- بعد از هر امتیاز، چند ثانیه آخر بازی به صورت اسلوموشن دوباره پخش می‌شه (با Space می‌تونی ردش کنی).
 
-## 📂 Project Structure
+## چه مودهایی داره؟
 
-- `src/main.rs` — game loop, app state, and screen-specific update/draw logic.
-- `src/game_state.rs` — `GameState` / `GameMode` / `Difficulty` / `Winner` / `ScoreEvent` enums.
-- `src/paddle.rs` — `Paddle` struct: movement, AI chasing, size effects.
-- `src/ball.rs` — `Ball` struct: movement, wall bounce, paddle bounce angle.
-- `src/powerup.rs` — `PowerUpKind` enum plus spawning/drawing logic.
-- `src/replay.rs` — `Snapshot` struct and the rolling replay buffer.
-- `src/score.rs` — scoring and match-end logic.
-- `Cargo.toml` — project dependencies and configuration.
+- **تک‌نفره (Single Player)**: بازی مقابل هوش مصنوعی، با سه سطح سختی (آسون / متوسط / سخت).
+- **دو‌نفره (Two Player)**: بازی رودررو روی یه سیستم.
+- **منوی اصلی**: انتخاب بین ۱ نفره / ۲ نفره / راهنمای کنترل‌ها / خروج.
 
-## Running it
+## چه آیتمایی داره؟
 
-You need a Rust toolchain ([rustup.rs](https://rustup.rs)) installed.
+هشت پاورآپ به‌صورت تصادفی وسط زمین ظاهر می‌شن:
+
+- **Fast Ball / Slow Ball** — سرعت توپ رو تغییر می‌ده.
+- **Big Paddle** — راکت خودت رو بزرگ‌تر می‌کنه.
+- **Shrink Opponent** — راکت حریف رو کوچیک می‌کنه.
+- **Freeze** — حریف رو موقتاً بی‌حرکت می‌کنه.
+- **Reverse Controls** — کنترل‌های حریف رو معکوس می‌کنه.
+- **Shield** — یه بار جلوی گل خوردنت رو می‌گیره.
+- **Multi-Ball** — یه توپ اضافه به زمین اضافه می‌کنه.
+
+## ساختار پروژه چجوریه؟
+
+- `src/main.rs` — حلقه‌ی اصلی بازی، منو، و رندر صفحات مختلف.
+- `src/game_state.rs` — enum های `GameState` / `GameMode` / `Difficulty` / `Winner` / `ScoreEvent`.
+- `src/paddle.rs` — استراکت `Paddle`: حرکت، هوش مصنوعی، تغییر اندازه.
+- `src/ball.rs` — استراکت `Ball`: حرکت، برخورد با دیوار و راکت.
+- `src/powerup.rs` — enum `PowerUpKind` و منطق spawn/draw پاورآپ‌ها.
+- `src/replay.rs` — استراکت `Snapshot` و بافر ریپلی.
+- `src/score.rs` — منطق امتیازدهی و پایان بازی.
+- `Cargo.toml` — وابستگی‌ها و تنظیمات پروژه.
+
+### اجرا
 
 ```bash
 cargo run --release
 ```
-
-## Notes
-
-Two intentional simplifications:
-- The extra ball spawned by Multi-Ball never scores or ends a rally by itself; it just bounces around for its duration and then disappears. Only the original ball can score.
-- Slow-motion replays only show the original ball and both paddles, not any extra balls that were on screen at the time.
-
-Not yet implemented: animated countdown digits, a settings toggle to disable slow-motion replays.
 
 ---
 
