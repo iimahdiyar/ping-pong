@@ -283,7 +283,7 @@ impl App {
             tb.timer > 0.0 && tb.ball.pos.x > -100.0 && tb.ball.pos.x < screen_width() + 100.0
         });
 
-        self.update_powerups();
+        self.update_powerups(dt);
 
         self.replay_buffer.push(Snapshot {
             ball_pos: self.ball.pos,
@@ -303,10 +303,13 @@ impl App {
         }
     }
 
-    fn update_powerups(&mut self) {
-        if self.powerup.is_none() && self.powerup_spawn_timer <= 0.0 {
-            self.powerup = Some(PowerUp::spawn_random());
-            self.powerup_spawn_timer = POWERUP_SPAWN_INTERVAL;
+    fn update_powerups(&mut self, dt: f32) {
+        if self.powerup.is_none() {
+            self.powerup_spawn_timer -= dt;
+            if self.powerup_spawn_timer <= 0.0 {
+                self.powerup = Some(PowerUp::spawn_random());
+                self.powerup_spawn_timer = POWERUP_SPAWN_INTERVAL;
+            }
         }
 
         let mut hit: Option<(PowerUpKind, bool)> = None;
