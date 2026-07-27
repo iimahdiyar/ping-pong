@@ -1,55 +1,55 @@
 # 🏓 Rust Pong
 
-## بازی چیه؟
+## What is this game?
 
-یه نسخه‌ی مدرن و سریع از بازی کلاسیک Pong هست که با زبان Rust و موتور بازی‌سازی Macroquad نوشته شده. نسبت به Pong معمولی، این نسخه هوش مصنوعی، سیستم پاورآپ، و ریپلی اسلوموشن داره.
+A modern, fast-paced take on the classic Pong game, built with Rust and the Macroquad game engine. Compared to regular Pong, this version has an AI opponent, a power-up system, and slow-motion replays.
 
-## چجوری انجام میشه؟
+## How is it played?
 
-| کار                  | بازیکن ۱ (چپ) | بازیکن ۲ (راست / AI) |
-|----------------------|:---------------:|:-----------------------:|
-| حرکت به بالا         | W               | فلش بالا                |
-| حرکت به پایین        | S               | فلش پایین                |
-| تایید در منو         | Enter           | Enter                    |
-| رد کردن ریپلی        | Space           | Space                    |
-| برگشت / خروج         | Escape          | Escape                   |
+| Action        | Player 1 (Left) | Player 2 (Right / AI) |
+|---------------|:---------------:|:----------------------:|
+| Move Up       | W               | Up Arrow                |
+| Move Down     | S               | Down Arrow               |
+| Confirm Menu  | Enter           | Enter                    |
+| Skip Replay   | Space           | Space                    |
+| Back / Quit   | Escape          | Escape                   |
 
-- توپ بعد از هر امتیاز سریع‌تر می‌شه (تا یه سقف مشخص).
-- زاویه‌ی برخورد توپ به راکت، بستگی به نقطه‌ی برخورد داره.
-- قبل از هر سرو یه شمارش معکوس (۳، ۲، ۱، برو!) نمایش داده می‌شه.
-- هر بار که گل بخوری، راکتت یه‌کم کوچیک‌تر می‌شه (تا یه حداقل مشخص).
-- بعد از هر امتیاز، چند ثانیه آخر بازی به صورت اسلوموشن دوباره پخش می‌شه (با Space می‌تونی ردش کنی).
+- The ball speeds up after every point (up to a set cap).
+- The bounce angle off the paddle depends on where the ball hits it.
+- A countdown (3, 2, 1, GO!) is shown before every serve.
+- Every time you concede a point, your paddle gets a little smaller (down to a minimum).
+- After every point, the last few seconds of the rally are replayed in slow motion (press Space to skip).
 
-## چه مودهایی داره؟
+## What modes does it have?
 
-- **تک‌نفره (Single Player)**: بازی مقابل هوش مصنوعی، با سه سطح سختی (آسون / متوسط / سخت).
-- **دو‌نفره (Two Player)**: بازی رودررو روی یه سیستم.
-- **منوی اصلی**: انتخاب بین ۱ نفره / ۲ نفره / راهنمای کنترل‌ها / خروج.
+- **Single Player**: Play against the AI, with three difficulty levels (Easy / Medium / Hard).
+- **Two Player**: Head-to-head play on one machine.
+- **Main Menu**: Choose between 1 Player / 2 Player / Controls / Quit.
 
-## چه آیتمایی داره؟
+## What items does it have?
 
-هشت پاورآپ به‌صورت تصادفی وسط زمین ظاهر می‌شن:
+Eight power-ups spawn randomly at the center of the field:
 
-- **Fast Ball / Slow Ball** — سرعت توپ رو تغییر می‌ده.
-- **Big Paddle** — راکت خودت رو بزرگ‌تر می‌کنه.
-- **Shrink Opponent** — راکت حریف رو کوچیک می‌کنه.
-- **Freeze** — حریف رو موقتاً بی‌حرکت می‌کنه.
-- **Reverse Controls** — کنترل‌های حریف رو معکوس می‌کنه.
-- **Shield** — یه بار جلوی گل خوردنت رو می‌گیره.
-- **Multi-Ball** — یه توپ اضافه به زمین اضافه می‌کنه.
+- **Fast Ball / Slow Ball** — changes the ball's speed.
+- **Big Paddle** — makes your paddle bigger.
+- **Shrink Opponent** — shrinks the opponent's paddle.
+- **Freeze** — temporarily stops the opponent from moving.
+- **Reverse Controls** — reverses the opponent's controls.
+- **Shield** — blocks one goal against you.
+- **Multi-Ball** — adds an extra ball to the field.
 
-## ساختار پروژه چجوریه؟
+## What's the project structure?
 
-- `src/main.rs` — حلقه‌ی اصلی بازی، منو، و رندر صفحات مختلف.
-- `src/game_state.rs` — enum های `GameState` / `GameMode` / `Difficulty` / `Winner` / `ScoreEvent`.
-- `src/paddle.rs` — استراکت `Paddle`: حرکت، هوش مصنوعی، تغییر اندازه.
-- `src/ball.rs` — استراکت `Ball`: حرکت، برخورد با دیوار و راکت.
-- `src/powerup.rs` — enum `PowerUpKind` و منطق spawn/draw پاورآپ‌ها.
-- `src/replay.rs` — استراکت `Snapshot` و بافر ریپلی.
-- `src/score.rs` — منطق امتیازدهی و پایان بازی.
-- `Cargo.toml` — وابستگی‌ها و تنظیمات پروژه.
+- `src/main.rs` — the main game loop, menu, and rendering of the different screens.
+- `src/game_state.rs` — the `GameState` / `GameMode` / `Difficulty` / `Winner` / `ScoreEvent` enums.
+- `src/paddle.rs` — the `Paddle` struct: movement, AI, and size changes.
+- `src/ball.rs` — the `Ball` struct: movement, wall and paddle collisions.
+- `src/powerup.rs` — the `PowerUpKind` enum and the power-up spawn/draw logic.
+- `src/replay.rs` — the `Snapshot` struct and the replay buffer.
+- `src/score.rs` — scoring and match-end logic.
+- `Cargo.toml` — project dependencies and configuration.
 
-### اجرا
+### Running it
 
 ```bash
 cargo run --release
